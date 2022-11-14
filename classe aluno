@@ -1,0 +1,117 @@
+/* Classe Aluno - By Sandro Izidoro - 2020
+ * 
+ * 12 – Defina uma classe de nome Aluno com membros de dados privados para armazenar 
+ * o nome do aluno, a série e o grau. Inclua dois métodos públicos: um para solicitar 
+ * os dados para o usuário e outro pra imprimir os dados. Execute os seguintes passos:
+ * 
+ * a) Escreva uma instrução que declare um objeto denominado Alu1 da classe Aluno;
+ * b) Escreva uma instrução para executar o método que solicite os dados de entrada para o usuário;
+ * c) Escreva uma instrução para executar o método que imprima os dados digitados;
+ * d) Inclua um membro static privado para contar o número de alunos cadastrados;
+ * e) Inclua um construtor que incremente o contador de alunos cadastrados;
+ * f) Inclua um destrutor que decremente o contador de alunos cadastrados;
+ * g) Escreva a instrução necessária para delcarar uma matriz de dez objetos da classe Aluno;
+ * h) Escreva a instrução necessária para preencher o primeiro elemento da matriz anterior com 
+ * os dados digitados pelo usuário.
+ * */
+ 
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+class Aluno{
+ private:
+   char nome[30];
+   int serie;
+   int grau;
+   static int cont;	
+ public:
+   Aluno(); // construtor default
+   Aluno(const char*); // construtor sobrecarregado
+   ~Aluno();
+   void setAluno(const char*, int, int);
+   void imprime();
+   int quantidade(){return cont;};  // método inline
+};
+
+// Programa Principal
+
+ int main () {
+    
+   Aluno Alu1;
+   char nome[30];
+   int serie;
+   int grau;
+   
+   cout << "endereco do objeto Alu1 -> " << &Alu1 << endl;
+   
+   // Leitura dos dados
+   cout << "\nNome do Aluno: " ;   cin.getline(nome,30);  
+   cout << "\nSérie: "; cin >> serie;
+   cout << "\nGrau: "; cin >> grau;
+   Alu1.setAluno(nome, serie, grau);
+   Alu1.imprime();
+   
+   cout << "Total de alunos: " << Alu1.quantidade();
+   
+   Aluno Turma1[10];
+   cout << "Total de alunos: " << Alu1.quantidade();
+    
+   // Leitura dos dados - Turma
+   cin.ignore();
+   cout << "\nNome do Aluno: " ;   cin.getline(nome,30);
+   cout << "\nSérie: "; cin >> serie;
+   cout << "\nGrau: "; cin >> grau;
+
+   Turma1[0].setAluno(nome, serie, grau);
+   cout << "Imprimindo aluno 0 " << endl;
+   Turma1[0].imprime();
+   cout << "Imprimindo alunos 1 e 9 " << endl;
+   Turma1[1].imprime();
+   Turma1[9].imprime();
+   
+   
+   Aluno Temp("maria da conceicao");
+   Temp.imprime();
+   
+   return 0;
+}
+
+int Aluno::cont = 0;
+
+// Definicao dos métodos da classe Restaurante
+
+Aluno::Aluno(){
+   strcpy(this->nome, " ");
+   this->serie = 0;
+   this->grau = 0;
+   cont++;
+}
+
+Aluno::Aluno(const char* nome){  // construtor sobrecarregado
+   strcpy(this->nome, nome);
+   this->serie = 0;
+   this->grau = 0;
+   cont++;
+}
+
+Aluno::~Aluno(){
+   cont--;
+   cout << "Destruindo: " << this << endl; 
+}
+
+void Aluno::setAluno(const char* nome, int serie, int grau){
+   strcpy(this->nome, nome);
+   this->serie = serie;
+   this->grau = grau;
+}
+
+void Aluno::imprime(){
+   cout << "Nome do Aluno: " << this->nome << endl;
+   cout << "Série: " << this->serie << endl;
+   cout << "Grau: " << this->grau << endl;
+   cout << "Ponteiro this -> " << this << endl; 
+}
+   
+
